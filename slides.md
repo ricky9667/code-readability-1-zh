@@ -161,44 +161,51 @@ class: text-center
 
 ---
 
-# 童子軍規則 (The boy scout rule)
+# 童子軍原則 (The boy scout rule)
 
 > 試著讓這個世界在你離開時，比你發現它時更好一點...
 > — Robert Baden-Powell
-> 由 Robert C. Martin 引入軟體開發領域
-> **只要動到程式碼，就順手改善它**
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+由 Robert C. Martin 引入軟體開發領域
 
----
+<h3 class="highlight">只要動到程式碼，就順手改善它</h3>
 
-# 實踐童子軍規則的「應做事項 (Dos)」
-
-- **新增**：註解、測試
-- **移除**：不必要的依賴關係、成員、條件式
-- **重新命名**：類別、函式、變數
-- **拆分**：龐大的類別、龐大的函式、深層巢狀結構、呼叫順序
-- **結構化**：格式、依賴關係、抽象層、層級架構
-
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
-# 實踐童子軍規則的「不應做事項 (Don'ts)」
+# 實踐童子軍原則的「應做事項 (Dos)」
 
-**不要在一個龐大的結構中加入新元素**
-範例：
+- **新增 (Add)**：註解、測試
+- **移除 (Remove)**：不必要的依賴關係、成員、條件式
+- **重新命名 (Rename)**：類別、函式、變數
+- **拆分 (Break)**：龐大的類別、龐大的函式、深層巢狀結構、呼叫順序
+- **結構化 (Structure)**：格式排版 、依賴關係、抽象層、層級架構
 
-- 不要在一個龐大的類別/函式中加入新的成員/敘述
-- 不要在深層的呼叫/類型層級中加入新的抽象層
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+---
+
+# 實踐童子軍原則的「不應做事項 (Don'ts)」
+
+.
+
+<h3 class="highlight">不要在一個龐大的結構中加入新元素</h3>
+
+**範例：**
+
+- 不要在一個龐大的類別/函式中加入**新的成員/敘述**
+- 不要在深層的呼叫/類型層級中加入**新的抽象層**
+
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
 # 應做與不應做範例 1/3
 
-**問題：新增一個新的列舉 (enum) 類型 Z 可以嗎？**
+.
+
+**問題**：新增一個新的列舉 (enum) 類型 Z 可以嗎？
 
 ```kotlin
 val viewType: ViewType = ... // 一個列舉類型
@@ -213,66 +220,72 @@ when (viewType) {
   }
   ...
 }
-
 ```
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
 # 應做與不應做範例 2/3
 
+.
+
 **答案：不應該直接加上去**
+
 因為已經有太多的條件分支了。
+
 **解決方案**：將值提取為 enum 的屬性。
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
 # 應做與不應做範例 3/3
 
-1: 將值提取為屬性
+1. **將值提取為屬性**
 
 ```kotlin
 enum class ViewType(val isView1Visible: Boolean, val view2Text: String)
-
 ```
 
-2: 利用這些屬性移除條件分支
+2. 利用這些屬性**移除條件分支**
 
 ```kotlin
 view1.isVisible = viewType.isView1Visible
 view2.text = viewType.view2Text
-
 ```
 
-3: **最後才加入新的類型 Z**
+3. 最後才加入新的類型 Z
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
-# 童子軍規則：注意事項
+# 童子軍原則：注意事項
 
-**不要發起過大的 Pull Request 或 Commit**
+.
 
-- 在實作新功能「之前」先進行重構
-  **考量影響範圍**
-- 提前決定重構的範圍
-- 不要在發布分支 (release branch) 上進行重構
+- **不要發起過大的 Pull Request 或 Commit**
+  - 在實作新功能「之前」先進行重構
 
-<div class="slide-tag">（簡介與原則 > 原則 > 童子軍規則）</div>
+- **考量影響範圍**
+  - 提前決定重構的範圍
+  - 不要在發布分支 (release branch) 上進行重構
+
+<div class="slide-tag">（簡介與原則 > 原則 > 童子軍原則）</div>
 
 ---
 
 # YAGNI 原則
 
+.
+
 **You Aren't Gonna Need It (你不需要它)**
+
 只在需要的時候才實作
 
-- 為了未來預留的 90% 功能最後都不會被用到
-- 保持結構簡單 ＝ 為未知的變化做好準備
+- 為了未來預留的 **90%** 功能最後都**不會被用到**
+- **保持結構簡單** ＝ 為未知的變化做好準備
 
 <div class="slide-tag">（簡介與原則 > 原則 > YAGNI）</div>
 
@@ -280,13 +293,13 @@ view2.text = viewType.view2Text
 
 # YAGNI 範例 1/2
 
-**未使用的程式碼**
+- **未使用的程式碼**
+  - 未被參照的類別/函式/變數
+  - 被註解掉的程式碼
 
-- 未被參照的類別/函式/變數
-- 被註解掉的程式碼
-  **過度擴充的程式碼**
-- 只有一個實作的抽象類型
-- 僅用於傳遞常數值的函式參數
+- **過度擴充的程式碼**
+  - 只有一個實作的抽象類型
+  - 僅用於傳遞常數值的函式參數
 
 <div class="slide-tag">（簡介與原則 > 原則 > YAGNI）</div>
 
@@ -294,16 +307,18 @@ view2.text = viewType.view2Text
 
 # YAGNI 範例 2/2
 
+.
+
 在 UI 座標模型中加入單位類型：
 
 ```kotlin
 class Coordinate(val x: Int, val y: Int, val unitType: UnitType)
-enum class UnitType { PIXEL, POINT }
 
+enum class UnitType { PIXEL, POINT }
 ```
 
-這樣會讓 `Coordinate` 的定義與其加法運算變得更複雜。
-**一個未使用的功能很容易導致不適當的設計。**
+這樣會讓 `Coordinate` 的定義與其加法運算變得更複雜
+<div class="highlight">一個未使用的功能很容易導致不適當的設計</div>
 
 <div class="slide-tag">（簡介與原則 > 原則 > YAGNI）</div>
 
@@ -311,12 +326,12 @@ enum class UnitType { PIXEL, POINT }
 
 # YAGNI：注意事項
 
-專注於功能實作
+- **專注於功能實作**
+  - 必須經過討論：設計方式、以及該功能是否真的需要
 
-- 必須經過討論：設計方式、以及該功能是否真的需要
-  假設程式碼是可修改的
-- 對於公開 API 或外部函式庫需特別留意
-- 需要系統能夠更新
+- **假設程式碼是可修改的**
+  - 對於公開 API 或外部函式庫需特別留意
+  - 需要系統能夠更新
 
 <div class="slide-tag">（簡介與原則 > 原則 > YAGNI）</div>
 
@@ -553,7 +568,7 @@ val data = hashMap[expectedKey]
 # 總結 (Summary)
 
 - **可讀性**是為了軟體的永續開發。
-- **童子軍規則**：在修改程式碼之前，先讓它變得更容易閱讀。
+- **童子軍原則**：在修改程式碼之前，先讓它變得更容易閱讀。
 - **YAGNI**：只在絕對需要時才實作。
 - **KISS**：選擇簡單的解決方案，程式碼漂亮不等於可讀性好。
 - **單一職責原則**：釐清職責範圍。
