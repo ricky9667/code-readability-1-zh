@@ -1,28 +1,23 @@
 ---
 layout: cover
 transition: slide-left
-background: https://images.unsplash.com/photo-1778003586047-69c68f764af5?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+background: https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D  
 ---
 
-# 程式碼可讀性 (Code readability)
+# 程式碼可讀性 Code Readability
 
-Munetoshi Ishikawa
-
----
-
-# 相關書籍
-
-《好的程式碼編寫指南 - 為了永續的軟體開發》（良いコードのガイドライン - 持続可能なソフトウェア開発のための）
-
-- 出版日期：2023年10月22日，技術評論社
-- 語言：日文
-  [https://gihyo.jp/book/](https://gihyo.jp/book/) 2022/978-4-297-13036-7
+原作者 Munetoshi Ishikawa | 繁中版翻譯 Ricky Hu
 
 ---
+layout: cover
+background: https://images.unsplash.com/photo-1502462041640-b3d7e50d0662?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
+---
 
-# 程式碼可讀性 第 1 講
+程式碼可讀性：第一篇
 
-簡介與原則 (Introduction and Principles)
+# 簡介與原則
+
+## Introduction and Principles
 
 ---
 
@@ -32,16 +27,26 @@ Munetoshi Ishikawa
 - **簡單 (Simple)**：使用 `isA && isB` 而不是 `!(!isA || !isB) && isB`
 - **獨立/隔離 (Isolated)**：函式、類別、模組等應各自獨立
 - **結構化 (Structured)**：格式、依賴關係、狀態轉換等
-  必須同時考量多個特徵
-  可讀性取決於時間與上下文情境
+
+<v-click>
+
+<strong class="highlight">必須同時考量多個特徵</strong>
+
+<strong class="highlight">可讀性取決於「時間」與「上下文情境」</strong>
+</v-click>
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
 ---
+layout: center
+class: text-center
+---
 
-# 為什麼我們需要高可讀性的程式碼
+## 為什麼我們需要高可讀性的程式碼
 
-為了在大型產品中依然能保持**高生產力**
+<br />
+
+<h1 class="highlight">為了在大型產品中依然能保持「高生產力」</h1>
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -49,22 +54,28 @@ Munetoshi Ishikawa
 
 # 產品規模與生產力
 
-大型開發 → 難以維持高生產力
-價值、產出 < 開發規模（程式碼量、人數、時間）
-可讀性：實現高生產力的方法之一
+- 大型開發 → 難以維持高生產力
+- 價值、產出 < 開發規模（程式碼量、人數、時間）
 
-<div class="slide-tag">（簡介與原則 > 簡介）</div>
+![Development Scale Chart](./assets/development_scale_chart.png)
+
+- 可讀性：**實現高生產力的方法之一**
 
 ---
 
 # 產品規模與可讀性
 
+.
+
 在大型產品中，**讀程式碼的時間 > 寫程式碼的時間**
 
 - 為了實作新功能，必須先理解現有的程式碼
+
 - 請求兩位以上的工程師進行程式碼審查 (Code review)
+
 - 即使只修改一行程式碼，也可能涉及複雜的 Bug 修復
-  **「容易閱讀」比「容易撰寫」更重要**
+
+<strong class="highlight">「容易閱讀」比「容易撰寫」更重要</strong>
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -72,11 +83,15 @@ Munetoshi Ishikawa
 
 # 生產力最佳化
 
-專注於整個產品生命週期中的**團隊生產力**
-你多花 5 分鐘，可能為其他人省下 1 小時
-加上註解、撰寫測試、進行重構
-我們可能需要更新人員的考績評估標準
-**不要只專注於短期的實作速度**
+.
+
+<strong class="highlight">專注於整個產品生命週期中的「團隊生產力」</strong>
+
+- **你多花 5 分鐘，可能為其他人省下 1 小時**
+  - 加上註解、撰寫測試、進行重構
+
+- **我們可能需要更新人員的考績評估標準**
+  - 不要只專注於短期的實作速度
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -85,7 +100,8 @@ Munetoshi Ishikawa
 # 囚徒困境 (Prisoner's dilemma)
 
 如果我們只專注於個人生產力，團隊的生產力可能會下降
-_(示意圖：當 Bob 和 Alice 都寫容易閱讀的程式碼時，兩人皆得益；當一方寫糟糕的程式碼 (Hacky) 時，雖然個人可能省時，但團隊整體效率卻會受損)_
+
+![囚徒困境](./assets/prisoner_dilemma.png)
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -94,10 +110,14 @@ _(示意圖：當 Bob 和 Alice 都寫容易閱讀的程式碼時，兩人皆得
 # 如何致力於提升可讀性
 
 - **選擇技術與知識**：記住目標
+
 - **在價值與複雜度之間取得平衡**
+
 - **利用自動化驗證的優勢**：編譯器、測試等
+
 - **頻繁討論**：減少錯誤造成的重工
-- **持續學習**
+
+- <strong class="highlight">持續學習</strong>
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -105,12 +125,12 @@ _(示意圖：當 Bob 和 Alice 都寫容易閱讀的程式碼時，兩人皆得
 
 # 學習如何寫出易讀的程式碼
 
-實作功能相對容易
-不需要特別的訓練
-**不學習，就寫不出具可讀性的程式碼**
+- **實作功能相對容易**
+  - 不需要特別的訓練
 
-- 講座、培訓、書籍、線上文章
-- 同儕程式碼審查 (Peer code review)、結對編程 (Pair programming)
+- **不學習，就寫不出具可讀性的程式碼**
+  - 講座、培訓、書籍、線上文章
+  - 同儕程式碼審查 (Peer code review)、結對編程 (Pair programming)
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -118,11 +138,11 @@ _(示意圖：當 Bob 和 Alice 都寫容易閱讀的程式碼時，兩人皆得
 
 # 本課程內容
 
-- 簡介與原則
-- 自然語言：命名、註解
-- 內部類型結構：狀態、函式
-- 類型間結構：依賴關係 I、依賴關係 II
-- 後續：回顧
+- <strong class="highlight">簡介與原則</strong>
+- **自然語言**：命名、註解
+- **內部類型結構**：狀態、函式
+- **類型間結構**：依賴關係 I、依賴關係 II
+- **後續**：程式碼審查
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
@@ -131,13 +151,13 @@ _(示意圖：當 Bob 和 Alice 都寫容易閱讀的程式碼時，兩人皆得
 # 主題
 
 - 簡介
-- **童子軍規則 (The boy scout rule)**
-- **YAGNI 原則 (You Aren't Gonna Need It)**
-- **KISS 原則 (Keep It Simple Stupid)**
-- **單一職責原則 (Single responsibility principle)**
-- **過早最佳化是萬惡之源 (Premature optimization is the root of all evil)**
+- 童子軍原則 (The boy scout rule)
+- YAGNI 原則 (You Aren't Gonna Need It)
+- KISS 原則 (Keep It Simple Stupid)
+- 單一職責原則 (Single responsibility principle)
+- 過早最佳化是萬惡之源 (Premature optimization is the root of all evil)
 
-_(簡介與原則 > 原則)_
+<div class="slide-tag">（簡介與原則 > 原則）</div>
 
 ---
 
