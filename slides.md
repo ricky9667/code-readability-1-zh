@@ -1,5 +1,7 @@
 ---
-theme: default
+layout: cover
+transition: slide-left
+background: https://images.unsplash.com/photo-1778003586047-69c68f764af5?q=80&w=1471&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D
 ---
 
 # 程式碼可讀性 (Code readability)
