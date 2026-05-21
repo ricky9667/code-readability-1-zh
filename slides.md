@@ -339,13 +339,18 @@ enum class UnitType { PIXEL, POINT }
 
 # KISS 原則
 
+.
+
 **Keep It Simple Stupid (保持簡單愚蠢)**
-— Clarence Leonard "Kelly" Johnson
+
 選擇更簡單的解決方案
 
 - 盡可能使用標準的實作方式
 - 限制並明確規範函式庫/框架/設計的使用方式
-  **看起來「漂亮」的程式碼，不一定具備好的「可讀性」**
+
+<br /> 
+
+<h4 class="highlight">看起來「漂亮」的程式碼，不一定具備好的「可讀性」</h4>
 
 <div class="slide-tag">（簡介與原則 > 原則 > KISS）</div>
 
@@ -360,10 +365,9 @@ return userActionLog
     .sortedBy { it.second }
     .map { it.first }
     .takeLast(10)
-
 ```
 
-必須從頭讀到尾才能理解：接收者是誰？`it` 代表什麼？
+**必須從頭讀到尾才能理解**：接收者是誰？`it` 代表什麼？
 
 <div class="slide-tag">（簡介與原則 > 原則 > KISS）</div>
 
@@ -381,7 +385,6 @@ val userListSortedByLogCount: List<String> = logCountByUser
     .map { (userId, _) -> userId }
 
 return userListSortedByLogCount.takeLast(10)
-
 ```
 
 雖然看起來不夠「漂亮」，但更容易被理解。
@@ -392,8 +395,11 @@ return userListSortedByLogCount.takeLast(10)
 
 # 單一職責原則 (Single responsibility principle)
 
+.
+
 只有單一方法 == 職責很小？
-**錯。方法數量 ≠ 職責多寡**
+
+<div class="highlight">錯。方法數量 != 職責多寡</div>
 
 ```kotlin
 class Alviss {
@@ -401,7 +407,6 @@ class Alviss {
     // 可能 ...
     fun doEverything(state: UniverseState)
 }
-
 ```
 
 <div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
@@ -410,36 +415,64 @@ class Alviss {
 
 # 單一職責原則
 
-> 一個類別應該只有一個改變的理由。
-> — Robert C. Martin
-> **不應該將兩個不相關的功能混雜在一起。**
+> A class should have only one reason to change. --   Robert C. Martin
+
+<br />
+
+<h4 class="highlight">不應該將兩個不相關的功能混雜在一起。</h4>
 
 <div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
 
 ---
 
-# 單一職責原則：不良範例
+# 單一職責原則：不良範例 1/2
+
+.
 
 **圖書館的書籍借閱狀態：**
 
-- 書籍借閱狀態
-- 書籍的定義與列表
-- 使用者的定義與列表
-- 借閱狀態的條目（使用者、到期日）
-  （將這些全混在同一個類別中）
+![](./assets/srp_bad_example.png)
 
 <div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
 
 ---
 
-# 單一職責原則：如何改善
+# 單一職責原則：不良範例 2/2
 
-為每個實體拆分對應的模型類別：
+.
 
-- 租借狀態模型
-- 書籍定義模型
-- 使用者定義模型
-- 租借狀態條目 (使用者, 到期日)
+**圖書館的書籍借閱狀態：**
+
+```kotlin
+class LibraryBookRentalData(
+  val bookIds: MutableList<Int>,
+  val bookNames: MutableList<String>,
+  val bookIdToRenterNameMap: MutableMap<Int, String>,
+  val bookIdToDueDateMap: MutableMap<Int, Date>, ...
+) {
+  fun findRenterName(bookName: String): String?
+  fun findDueDate(bookName: String): Date?
+  ...
+}
+```
+
+<div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
+
+---
+
+# 單一職責原則：如何改善 1/2
+
+.
+
+**為每個實體拆分對應的模型類別：**
+
+![](./assets/srp_good_example.png)
+
+<div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
+
+---
+
+# 單一職責原則：如何改善 2/2
 
 ```kotlin
 data class BookData(val id: Int, val name: String, ...)
@@ -457,7 +490,9 @@ class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
 
 # 保持職責細小
 
-拆分類別：
+.
+
+**拆分類別**：
 
 - 為每個實體 (Entity) 建立模型
 - 為每一層 (Layer) 和組件 (Component) 建立邏輯
@@ -469,11 +504,14 @@ class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
 
 # 如何確認職責大小
 
-列出該類別負責的所有事項，並試著用一句話總結它。
-如果遇到以下情況，請拆分類別：
+.
 
-- **很難總結它到底在做什麼**
-- **相較於類別名稱，總結出來的句子太長了**
+<h4 class="highlight">列出該類別負責的所有事項，並試著用一句話總結它。</h4>
+
+**如果遇到以下情況，請拆分類別：**
+
+- 很難總結它到底在做什麼
+- 相較於類別名稱，總結出來的句子太長了
 
 <div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
 
