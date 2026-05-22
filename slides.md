@@ -46,7 +46,11 @@ class: text-center
 
 <br />
 
+<v-click>
+
 <h1 class="highlight">為了在大型產品中依然能保持「高生產力」</h1>
+
+</v-click>
 
 <div class="slide-tag">（簡介與原則 > 簡介）</div>
 
