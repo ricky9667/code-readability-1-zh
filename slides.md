@@ -413,9 +413,13 @@ class Alviss {
 
 ---
 
-# 單一職責原則
+# 單一職責原則 (Single responsibility principle)
 
-> A class should have only one reason to change. --   Robert C. Martin
+Robert C. Martin：
+
+> A class should have only one reason to change.
+>
+> 一個類別應該只有一個改變的理由。
 
 <br />
 
@@ -481,7 +485,6 @@ data class UserData(val name: String, ...)
 class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
     data class Entry(val renter: UserData, val dueDate: Date)
 }
-
 ```
 
 <div class="slide-tag">（簡介與原則 > 原則 > 單一職責原則）</div>
@@ -519,8 +522,11 @@ class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
 
 # 過早最佳化 (Premature optimization)
 
-> 在大約 97% 的時間裡，我們應該忘記微小的效率提升：過早的最佳化是萬惡之源。
-> — Donald Knuth
+Donald Knuth：
+
+> We should forget about small efficiencies, say about 97% of the time: premature optimization is the root of all evil.
+> 
+> 在大約 97% 的時間裡，我們應該忘記微小的效率提升：<span class="highlight">過早的最佳化是萬惡之源。</span>
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -528,8 +534,9 @@ class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
 
 # 過早最佳化
 
-**好的最佳化**：讓程式碼變得更簡單
-**壞的最佳化**：讓程式碼變得更複雜
+- **好的最佳化**：讓程式碼變得更簡單
+
+- **壞的最佳化**：讓程式碼變得更複雜
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -537,21 +544,26 @@ class CirculationRecord(val onLoanBookEntries: MutableMap<...>) {
 
 # 好的最佳化範例
 
-最佳化前：
+- **最佳化前**：
 
 ```kotlin
 val data = arrayList.find { data -> data.key == expectedKey }
-
 ```
 
-最佳化後：
+<v-click>
+
+- **最佳化後**：
 
 ```kotlin
 val data = hashMap[expectedKey]
-
 ```
+</v-click>
 
-在降低計算成本的同時，也簡化了程式碼。
+<v-click>
+
+**簡化程式碼**的同時在降低計算成本
+
+</v-click>
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -559,8 +571,11 @@ val data = hashMap[expectedKey]
 
 # 讓程式碼變複雜的最佳化 1/2
 
+Donald Knuth:
+
+> Yet we should not pass up our opportunities in that critical 3%.
+>
 > 然而，我們也不應放棄在那關鍵的 3% 裡的機會。
-> — Donald Knuth
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -572,7 +587,8 @@ val data = hashMap[expectedKey]
 - 快取 (Cache)
 - 實例池 (Instance pool)
 - 延遲初始化 (Lazy initialization)
-  這些往往需要平台支援或進行效能分析 (Profiling)。
+  
+這些往往需要<span class="highlight">平台支援或進行效能分析 (Profiling)</span>
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -580,12 +596,12 @@ val data = hashMap[expectedKey]
 
 # 最佳化的缺點
 
-**可能阻礙程式碼的簡化**
+- **可能阻礙程式碼的簡化**
+  - 編譯器的最佳化器可能比你更聰明
 
-- 編譯器的最佳化器可能比你更聰明
-  **可能需要額外的重擔成本**
-- 快取：需要考量快取未命中率、存取時間
-- 延遲初始化：需要處理 (同步) 實例檢查
+- **可能需要額外的重擔成本**
+  - 快取：需要考量快取未命中率、存取時間
+  - 延遲初始化：需要處理 (同步) 實例檢查
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -593,11 +609,11 @@ val data = hashMap[expectedKey]
 
 # 最佳化前應採取的行動
 
-1. 檢查這個最佳化是否合理
-2. 在價值與複雜度之間取得平衡
-3. 進行效能分析/評估 (Profile/estimate)：
+- **檢查這個最佳化是否合理**
+  - 在價值與複雜度之間取得平衡
 
-- 目標 (時間、記憶體)、數量、頻率等
+- **進行效能分析/評估** (Profile/estimate)：
+  - 目標 (時間、記憶體)、數量、頻率等
 
 <div class="slide-tag">（簡介與原則 > 原則 > 過早最佳化）</div>
 
@@ -605,11 +621,18 @@ val data = hashMap[expectedKey]
 
 # 總結 (Summary)
 
-- **可讀性**是為了軟體的永續開發。
-- **童子軍原則**：在修改程式碼之前，先讓它變得更容易閱讀。
-- **YAGNI**：只在絕對需要時才實作。
-- **KISS**：選擇簡單的解決方案，程式碼漂亮不等於可讀性好。
-- **單一職責原則**：釐清職責範圍。
-- **過早最佳化**：在最佳化之前先進行效能分析與評估。
+<h4 class="highlight">可讀性是為了軟體的永續開發</h4>
+
+- **童子軍原則**：在修改程式碼之前，先讓它變得更容易閱讀
+- **YAGNI**：只在絕對需要時才實作
+- **KISS**：選擇簡單的解決方案，程式碼漂亮不等於可讀性好
+- **單一職責原則**：釐清職責範圍
+- **過早最佳化**：在最佳化之前先進行效能分析與評估
 
 <div class="slide-tag">（簡介與原則 > 總結）</div>
+
+---
+layout: end
+---
+
+[Github](https://github.com/ricky9667/code-readability-1-zh) | [English Version](https://speakerdeck.com/munetoshi/code-readability-session-1-ver-2-en)
